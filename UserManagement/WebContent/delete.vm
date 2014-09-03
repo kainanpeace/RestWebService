@@ -1,0 +1,82 @@
+<html>
+
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<script>
+	$(document).ready(function(){
+  		$("#submit").click(function(){
+    		$name = $("#name").text();
+    		//get final put request url
+    		$finalurl = "../delete/"+$name;
+    		//alert($oldname);
+  			
+  			
+  			$.ajax({
+    			url: $finalurl,
+    			type: 'DELETE',
+    			success: function(result) {
+    				$("#show").append("<p>Delete Successfully </p>")
+    				},
+    			error: function(error){
+    				alert("Error just occurred");
+    				}
+				});
+  		});
+	});
+	
+	</script>
+</head>
+
+<body>
+
+
+<h3>Delete page</h3>
+#set ($result = $finale.get("result"))
+#set ($users = $finale.get("users"))
+
+<br />
+#if($result.isEmpty() == false)
+	$result
+#else
+	there is no result return
+#end
+
+
+#if($users.isEmpty() == false)
+	<table>
+		<tr>
+    		<td>Name</td>
+    		<td>Age</td>
+    		<td>E-mail</td>
+    		<td>Pwd</td>
+		</tr>
+	## for each statement to iterate over a collection
+	#foreach($user in $users)
+		<tr>
+    		<td id="name">$user.userName</td>
+    		<td >$user.age</td>
+    		<td >$user.email</td>
+			<td >$user.pwd</td>
+		</tr><br />
+	#end
+	</table>
+#end
+
+<br />
+
+			<h4>Are you sure to delete this user info ?</h4>
+				
+			<input type="button" id="submit" value="Delete" />
+
+<div id="show">
+
+</div>
+
+
+<br />
+<a href="../read" >Return to main selection page</a>
+<br />
+
+</body>
+</html>

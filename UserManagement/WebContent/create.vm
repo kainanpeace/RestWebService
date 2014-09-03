@@ -1,0 +1,60 @@
+<html>
+
+<head>
+</head>
+
+<body>
+
+
+<h3>Create page</h3>
+
+<h3>Create one user</h3>
+		<p>Input all user info</p>
+		<form action="create" method="POST">
+			<label for="username">Name</label>
+			<input name="username" />
+			<label for="pwd">Password</label>
+			<input name="pwd" />	
+			<label for="age">Age</label>
+			<input name="age" />
+			<label for="email">E-mail</label>
+			<input name="email" />		
+			<input type="submit" value="Submit">
+		</form>	
+		
+#set ($result = $finale.get("result"))
+#set ($users = $finale.get("users"))
+
+#if($users.isEmpty() == false)
+	<table>
+		<tr>
+    		<td>Name</td>
+    		<td>Age</td>
+    		<td>E-mail</td>
+    		<td>Pwd</td>
+		</tr>
+	## for each statement to iterate over a collection
+	#foreach($user in $users)
+		<tr>
+    		<td id="name">$user.userName</td>
+    		<td >$user.age</td>
+    		<td >$user.email</td>
+			<td >$user.pwd</td>
+		</tr><br />
+	#end
+	</table>
+#end
+
+<br />
+
+#if($result.isEmpty() == false)
+	<h4> $result</h4>
+#end			
+
+
+<br />
+<a href="read" >Return to main selection page</a>
+<br />
+
+</body>
+</html>

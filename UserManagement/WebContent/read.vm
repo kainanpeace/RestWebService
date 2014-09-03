@@ -1,0 +1,71 @@
+<html>
+<head> <title>User Management</title> 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
+	$(document).ready(function(){
+  		$(".update").click(function(){
+    		$name = $(this).parent().siblings(".name").text();
+    		window.location.replace("update/"+$name);
+  			
+  		});
+	});
+
+	$(document).ready(function(){
+  		$(".delete").click(function(){
+    		$name = $(this).parent().siblings(".name").text();
+    		window.location.replace("delete/"+$name);
+  			
+  		});
+	});
+
+</script>
+
+</head>
+<body>
+<h3>Welcome to User Management</h3>
+
+
+#set ($result = $finale.get("result"))
+#set ($users = $finale.get("users"))
+
+<h3>Create one user</h3>
+		<a href="create">
+		<input type="button" value="Create" >
+		</a>
+<h3>All users</h3>
+
+#if($users.isEmpty() == false)
+	users not null
+#else
+	users is null
+#end
+
+#if($users.isEmpty() == false)
+	<table>
+		<tr>
+    		<td>Name</td>
+    		<td>Age</td>
+    		<td>E-mail</td>
+    		<td>Update/Delete</td>
+		</tr>
+	## for each statement to iterate over a collection
+	#foreach($user in $users)
+		<tr>
+    		<td class="name">$user.userName</td>
+    		<td class="age">$user.age</td>
+    		<td class="email">$user.email</td>
+    		<td class="operation">
+    		  <input type="button" value="update" class="update" />
+    		  <input type="button" value="delete" class="delete" />
+    		</td>
+		</tr>
+	#end
+	</table>
+#end
+
+
+<br />
+Today is :  $date.medium
+</body>
+</html>

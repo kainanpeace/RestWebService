@@ -1,0 +1,90 @@
+<html>
+
+<head>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+	<script>
+	$(document).ready(function(){
+  		$("#submit").click(function(){
+  			$oldname = $("#oldname").text();
+    		$name = $("#name").val();
+    		$age = $("#age").val();
+    		$pwd = $("#pwd").val();
+    		$email = $("#email").val();
+    		//get final put request url
+    		$finalurl = "../update/oldname/"+$oldname+"/name/"+$name+"/age/"+$age+"/pwd/"+$pwd+"/email/"+$email;
+  			
+  			$.ajax({
+    			url: $finalurl,
+    			type: 'PUT',
+    			success: function(result) {
+					//alert("update successfully"+result);
+    				$("#show").append("<p>Update Successfully</p>");
+    			},
+    			error: function(error){
+    				alert("Error just occurred");
+    			}
+				});
+  		});
+	});
+	
+	</script>
+</head>
+
+<body>
+
+
+<h3>Update page</h3>
+#set ($result = $finale.get("result"))
+#set ($users = $finale.get("users"))
+
+<br />
+#if($result.isEmpty() == false)
+	$result
+#else
+	there is no result return
+#end
+
+
+#if($users.isEmpty() == false)
+	<table>
+		<tr>
+    		<td>Name</td>
+    		<td>Age</td>
+    		<td>E-mail</td>
+    		<td>Pwd</td>
+		</tr>
+	## for each statement to iterate over a collection
+	#foreach($user in $users)
+		<tr>
+    		<td id="oldname">$user.userName</td>
+    		<td >$user.age</td>
+    		<td >$user.email</td>
+			<td >$user.pwd</td>
+		</tr><br />
+	#end
+	</table>
+#end
+
+<br />
+
+			<h4>Insert new user info to update</h4>
+			<label for="username">Name</label>
+			<input id="name" />
+			<label for="pwd">Password</label>
+			<input id="pwd" />	
+			<label for="age">Age</label>
+			<input id="age" />
+			<label for="email">E-mail</label>
+			<input id="email" />		
+			<input type="button" id="submit" value="Submit">
+
+<div id="show"></div>
+
+
+<br />
+<a href="../read" >Return to main selection page</a>
+<br />
+
+</body>
+</html>
